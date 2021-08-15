@@ -1,0 +1,85 @@
+﻿@model WijayanthaHardware.Models.PaintViewModel
+@{
+    int counter = 0;
+    ViewBag.Title = "AddPaint";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@section style{
+    
+    @Styles.Render("~/add-paint-css")
+}
+<div class="paint-master">
+    <div class="container">
+        <div class="paint-add-btns">
+            <ul>
+                <li><a class="same-btn" href="/Paints/AddCategory">Add category</a></li>
+                <li><a class="same-btn" href="#addcolor" data-toggle="modal">Add color</a></li>
+            </ul>
+        </div>
+        <div class="add-paint">
+            <h1 class="big-heading">Add paint</h1>
+            @using (Ajax.BeginForm("AddNewPaints", "Paints", null, new AjaxOptions { HttpMethod = "POST" }, new { @id = "AddPaints", role = "form" }))
+            {
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        @Html.LabelFor(x => x.PaintCategoryId, new { @class = "small-heading" })
+                        @Html.DropDownListFor(x => x.PaintCategoryId, Model.PaintCatergoryList, "Select Paint Category", new { @class = "wide" })
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        @Html.LabelFor(x => x.PaintSubCategoryId, new { @class = "small-heading" })
+                        @Html.DropDownListFor(x => x.PaintSubCategoryId, Model.PaintSubategoryList, "Select Paint", new { @class = "wide" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div id="paintSearch" class="search-bar common-margin">
+                            <input id="searchBar" type="text" placeholder="Search Paint Color" class="typeahead">
+                        </div>
+                    </div>
+                </div>
+
+                foreach (var paintVolume in Model.Volumes)
+                {
+                    <div class="row itemlist" id="@paintVolume.Value" value="">
+                        <div class="add-paint-quantity">
+                            <div class="col-xs-6 col-sm-3 col-md-3 common-margin">
+                                <input id="litre-@counter" type="checkbox" name="litre" value="@paintVolume.Value" />
+                                <label for="litre-@counter">@paintVolume.Text</label>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 common-margin">
+                                <input type="text" name="Cost" value="" placeholder="Cost" disabled autocomplete="off" />
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 common-margin">
+                                <input type="number" name="Price" value="" placeholder="Price" disabled min="0" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 common-margin">
+                                <input type="number" name="Quantity" value="" placeholder="Quantity" disabled min="0" class="form-control" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    counter++;
+                }
+                <div class="row">
+                    <div class="btns common-margin">
+                        <button class="same-btn" type="submit">Save</button>
+                        <button class="same-btn" type="reset">reset</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@*add paint modal*@
+
+@Html.Partial("_AddColor", Model)
+
+@*add paint modal end*@
+@section script
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @Scripts.Render("~/add-paint-js")
+
+}
+
+

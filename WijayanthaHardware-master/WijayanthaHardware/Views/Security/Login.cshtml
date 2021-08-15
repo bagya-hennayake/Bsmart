@@ -1,0 +1,31 @@
+﻿@model WijayanthaHardware.Models.LoginViewModel
+
+
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml ";
+}
+
+<div class="login-form">
+    <div class="login-form-inner">
+        <div class="lock"><i class="fas fa-user-lock"></i></div>
+        <h1>login</h1>
+        @using (Ajax.BeginForm("Login", "Security", null, new AjaxOptions { HttpMethod = "POST" }, new { @id = "LoginForm", role = "form" }))
+        {
+            @Html.HiddenFor(x => x.ReturnUrl)
+            @Html.AntiForgeryToken()
+            <div class="tbox">
+                @Html.TextBoxFor(x => x.Username, new { placeholder = "Username" })
+                @Html.ValidationMessageFor(m => m.Username, null, new { @class = "text-danger" })
+            </div>
+            <div class="tbox">
+                @Html.PasswordFor(x => x.UserPassword, new { placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.UserPassword, null, new { @class = "text-danger" })
+            </div>
+            <input class="submit-btn" type="submit" name="submit" value="login">
+        }
+        <a href="javascript:;">forgot password?</a>
+    </div>
+</div>
+<script src="~/Scripts/Login.js"></script>

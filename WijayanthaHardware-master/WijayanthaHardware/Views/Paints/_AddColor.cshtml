@@ -1,0 +1,25 @@
+﻿@model WijayanthaHardware.Models.PaintViewModel
+<div class="modal fade" id="addcolor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title small-heading" id="exampleModalLongTitle">Add New Color</h5>
+            </div>
+            @using (Ajax.BeginForm("AddNewColour", "Paints", null, new AjaxOptions { HttpMethod = "POST" }, new { @id = "AddNewColourForm", role = "form" }))
+            {
+                <div class="modal-body">
+                    <label class="form-label">Color code</label><br />
+                    <input id="newColourCode" type="text" name="name" value="" placeholder="Add color code" autocomplete="off"/>
+                    <label class="form-label">Color name</label><br />
+                    <input id="newColour" type="text" name="name" value="" placeholder="Add paint colour" autocomplete="off"/>
+                    <label class="form-label">Color name</label><br />
+                    <input id="newColour" type="text" name="name" value="" placeholder="Add paint colour" autocomplete="off"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="same-btn" >Save Changes</button>
+                    <button type="button" class="same-btn" data-dismiss="modal">Close</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
